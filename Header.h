@@ -488,6 +488,47 @@ public:
     }
 };
 
+class Node2
+{
+public:
+    int data;
+    Node2 *left, *right;
+    Node2(int num) : data(num), left(nullptr), right(nullptr) {}
+};
+
+class Tree
+{
+public:
+    Node2 *root = nullptr;
+
+    void insert(int num)
+    {
+        root = insert(root, num);
+    }
+    Node2 *insert(Node2 *temp, int num)
+    {
+        if (!temp)
+            return new Node2(num);
+        if (num <= temp->data)
+            temp->left = insert(temp->left, num);
+        else
+            temp->right = insert(temp->right, num);
+        return temp;
+    }
+    void print()
+    {
+        print(root);
+    }
+    void print(Node2 *temp)
+    {
+        if (!temp)
+            return;
+        print(temp->left);
+        cout << temp->data << " ";
+        print(temp->right);
+    }
+};
+
 class DynamicArray
 {
 private:
