@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <stack>
+#include <vector>
 using namespace std;
 
 // Classes:
@@ -496,7 +497,7 @@ public:
     Node2(int num) : data(num), left(nullptr), right(nullptr) {}
 };
 
-class Tree
+class BST
 {
 public:
     Node2 *root = nullptr;
@@ -595,6 +596,47 @@ public:
     ~SmartPointer()
     {
         delete m_Ptr;
+    }
+};
+
+class UnionFind
+{
+    vector<int> parent;
+    vector<int> size;
+
+public:
+    UnionFind() : parent(9), size(9, 1)
+    {
+        for (int i = 0; i < parent.size(); i++)
+            parent[i] = i;
+    }
+    void unite(int num1, int num2)
+    {
+        int parent1 = find(num1);
+        int parent2 = find(num2);
+        if (parent1 == parent2)
+            return;
+        if (size[parent1] >= size[parent2])
+        {
+            parent[parent2] = parent1;
+            size[parent1] += size[parent2];
+            return;
+        }
+        parent[parent1] = parent2;
+        size[parent2] += size[parent1];
+    }
+    int find(int num)
+    {
+        int temp = num;
+        while (num != parent[num])
+            num = parent[num];
+        while (num != temp)
+        {
+            int firstParent = parent[temp];
+            parent[temp] = num;
+            temp = firstParent;
+        }
+        return num;
     }
 };
 
