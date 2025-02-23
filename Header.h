@@ -516,6 +516,66 @@ public:
             temp->right = insert(temp->right, num);
         return temp;
     }
+    void erase(int num)
+    {
+        root = erase(root, num);
+    }
+    Node2 *erase(Node2 *temp, int num)
+    {
+        if (!temp)
+            return nullptr;
+        if (temp->data > num)
+            temp->left = erase(temp->left, num);
+        else if (temp->data < num)
+            temp->right = erase(temp->right, num);
+        else
+        {
+            if (!temp->left)
+            {
+                Node2 *next = temp->right;
+                delete temp;
+                return next;
+            }
+            else if (!temp->right)
+            {
+                Node2 *next = temp->left;
+                delete temp;
+                return next;
+            }
+            else
+            {
+                Node2 *smallestRight = findMin(temp->right);
+                temp->data = smallestRight->data;
+                temp->right = erase(temp->right, smallestRight->data);
+            }
+        }
+        return temp;
+    }
+    Node2 *find(int num)
+    {
+        return find(root, num);
+    }
+    Node2 *find(Node2 *temp, int num)
+    {
+        if (!temp)
+            return nullptr;
+        if (temp->data == num)
+            return temp;
+        if (num < temp->data)
+            return find(temp->left, num);
+        else
+            return find(temp->right, num);
+    }
+
+    Node2 *findMin(Node2 *temp)
+    {
+        if (!temp)
+            return nullptr;
+        if (!temp->left)
+            return temp;
+        return findMin(temp->left);
+    }
+
     void print()
     {
         print(root);
