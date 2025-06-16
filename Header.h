@@ -4,8 +4,7 @@
 #include <vector>
 using namespace std;
 
-// learning git
-//learning v3
+// git reset , git add , git commit , git push , git pull , git checkout
 
 // Classes:
 
